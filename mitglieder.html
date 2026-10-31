@@ -13,7 +13,7 @@
     <section class="auth-hero">
       <span class="eyebrow">Mitgliederbereich</span>
       <h1>Dein persönlicher Lernbereich</h1>
-      <p>Mit einem Konto kannst du später Fortschritt, Favoriten, Fehler und Prüfungsergebnisse geräteübergreifend speichern.</p>
+      <p>Mit einem Konto werden Fortschritt, Favoriten, Fehler und Prüfungsergebnisse geräteübergreifend gespeichert.</p>
     </section>
 
     <section id="authArea" class="auth-grid">
@@ -34,11 +34,61 @@
     <p id="authStatus" class="auth-note"></p>
 
     <section id="memberArea" class="hidden">
-      <div class="panel dashboard-card"><h2>Willkommen</h2><p>Angemeldet als <strong id="memberEmail"></strong></p><button id="logoutBtn" class="btn">Abmelden</button></div>
-      <section class="section"><div class="grid2"><div class="panel dashboard-card"><h3>📈 Lernfortschritt</h3><p>Gelernte Fragen und persönlicher Fortschritt.</p></div><div class="panel dashboard-card"><h3>⭐ Favoriten</h3><p>Deine gespeicherten schwierigen Fragen.</p></div><div class="panel dashboard-card"><h3>↻ Fehler</h3><p>Falsch beantwortete Fragen gezielt wiederholen.</p></div><div class="panel dashboard-card"><h3>🏁 Prüfungen</h3><p>Vergangene Tests und Ergebnisse vergleichen.</p></div></div></section>
+      <div class="panel dashboard-card">
+        <div class="admin-toolbar">
+          <div>
+            <h2 id="memberWelcome">Willkommen</h2>
+            <p><strong id="memberName"></strong><br><span id="memberEmail"></span></p>
+          </div>
+          <button id="logoutBtn" class="btn">Abmelden</button>
+        </div>
+        <p id="memberStatus" class="auth-note">Deine Daten werden geladen …</p>
+      </div>
+
+      <div class="stats-grid" style="margin-top:20px">
+        <div class="panel stat-card"><span>📚 Gelernt</span><strong id="memberLearned">0</strong><small>Fragen</small></div>
+        <div class="panel stat-card"><span>↻ Fehler</span><strong id="memberWrong">0</strong><small>falsch beantwortet</small></div>
+        <div class="panel stat-card"><span>⭐ Favoriten</span><strong id="memberFavorites">0</strong><small>gespeichert</small></div>
+        <div class="panel stat-card"><span>🏁 Prüfungen</span><strong id="memberExams">0</strong><small>abgeschlossen</small></div>
+      </div>
+
+      <section class="section">
+        <div class="grid2">
+          <div class="panel dashboard-card">
+            <h3>📈 Lernfortschritt</h3>
+            <div class="stat-row"><span>Gelernte Fragen</span><strong id="progressLearned">0 / 460</strong></div>
+            <div class="stat-row"><span>Fortschritt</span><strong id="progressPercent">0 %</strong></div>
+            <div class="progress-box" style="margin-top:14px"><div id="memberProgressBar" style="height:10px;border-radius:999px;background:#dfe8e3;overflow:hidden"><div id="memberProgressFill" style="height:100%;width:0%;background:#164f3f"></div></div></div>
+            <a class="btn primary" style="margin-top:14px" href="index.html#lernen">Weiterlernen</a>
+          </div>
+          <div class="panel dashboard-card">
+            <h3>🏁 Prüfungen</h3>
+            <div class="stat-row"><span>Bestanden</span><strong id="memberPassed">0</strong></div>
+            <div class="stat-row"><span>Bestehensquote</span><strong id="memberPassRate">0 %</strong></div>
+            <div class="stat-row"><span>Ø Punktzahl</span><strong id="memberAvgScore">–</strong></div>
+            <a class="btn" style="margin-top:14px" href="index.html#pruefung">Prüfung starten</a>
+          </div>
+          <div class="panel dashboard-card">
+            <h3>⭐ Favoriten</h3>
+            <div id="memberFavoriteList" class="mini-list"><span>Noch keine Favoriten gespeichert.</span></div>
+          </div>
+          <div class="panel dashboard-card">
+            <h3>↻ Falsch beantwortet</h3>
+            <div id="memberWrongList" class="mini-list"><span>Noch keine Fehler gespeichert.</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="panel dashboard-card">
+          <h3>🧾 Letzte Prüfungen</h3>
+          <div id="memberExamList" class="mini-list"><span>Noch keine Prüfung abgeschlossen.</span></div>
+        </div>
+      </section>
     </section>
   </main>
   <script src="auth.js"></script>
-  <script>initMemberPage();</script>
+  <script src="member-dashboard.js"></script>
+  <script>initMemberDashboard();</script>
 </body>
 </html>
