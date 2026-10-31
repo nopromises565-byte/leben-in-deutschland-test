@@ -5,7 +5,8 @@
 
   function resetButton(button){
     if(!button)return;
-    button.textContent='🔊 Frage + Antworten anhören';
+    const type=button.dataset.audioType;
+    button.textContent=type==='question'?'🔊 Frage anhören':'🔊';
     button.setAttribute('aria-pressed','false');
   }
 
@@ -26,103 +27,90 @@
       || null;
   }
 
-  function collectSpeechText(card,title){
-    const question=(title?.textContent||'').trim();
-    const answers=[...card.querySelectorAll('.answer')].map((button,index)=>{
-      const text=(button.querySelector('span:last-child')?.textContent||'').trim();
-      const letter=String.fromCharCode(65+index);
-      return text?`Antwort ${letter}: ${text}`:'';
-    }).filter(Boolean);
-    return [question,...answers].filter(Boolean).join('. ');
-  }
-
-  function speakQuestionAndAnswers(button,card,title){
+  function speakText(button,text){
     if(!supported)return;
-
-    if(speakingButton===button && window.speechSynthesis.speaking){
-      stopSpeech();
-      return;
-    }
-
+    if(speakingButton===button && window.speechSynthesis.speaking){stopSpeech();return;}
     stopSpeech();
-    const text=collectSpeechText(card,title);
+    text=(text||'').trim();
     if(!text)return;
 
     const utterance=new SpeechSynthesisUtterance(text);
     utterance.lang='de-DE';
-    utterance.rate=0.88;
+    utterance.rate=0.9;
     utterance.pitch=1;
     utterance.volume=1;
-
     const germanVoice=pickGermanVoice();
     if(germanVoice)utterance.voice=germanVoice;
 
     speakingButton=button;
-    button.textContent='⏹ Audio stoppen';
+    button.textContent='⏹';
     button.setAttribute('aria-pressed','true');
 
-    utterance.onend=()=>{
-      if(speakingButton===button){
-        resetButton(button);
-        speakingButton=null;
-      }
-    };
-    utterance.onerror=()=>{
-      if(speakingButton===button){
-        resetButton(button);
-        speakingButton=null;
-      }
-    };
-
+    const done=()=>{if(speakingButton===button){resetButton(button);speakingButton=null;}};
+    utterance.onend=done;
+    utterance.onerror=done;
     try{window.speechSynthesis.resume();}catch{}
     window.speechSynthesis.speak(utterance);
+  }
+
+  function addQuestionAudio(card,title){
+    if(card.querySelector('.question-audio-btn'))return;
+    const button=document.createElement('button');
+    button.type='button';
+    button.className='btn question-audio-btn';
+    button.dataset.audioType='question';
+    button.textContent=supported?'🔊 Frage anhören':'🔇 Audio nicht unterstützt';
+    button.disabled=!supported;
+    button.setAttribute('aria-label','Deutsche Frage vorlesen');
+    button.setAttribute('aria-pressed','false');
+    button.style.margin='0 0 16px 0';
+    title.insertAdjacentElement('afterend',button);
+    if(supported)button.addEventListener('click',event=>{event.preventDefault();event.stopPropagation();speakText(button,title.textContent);});
+  }
+
+  function addAnswerAudio(card){
+    card.querySelectorAll('.answer').forEach((answer,index)=>{
+      if(answer.querySelector('.answer-audio-btn'))return;
+      const textSpan=answer.querySelector('span:last-child');
+      if(!textSpan)return;
+      const audio=document.createElement('button');
+      audio.type='button';
+      audio.className='answer-audio-btn';
+      audio.dataset.audioType='answer';
+      audio.textContent=supported?'🔊':'🔇';
+      audio.disabled=!supported;
+      audio.setAttribute('aria-label',`Antwort ${String.fromCharCode(65+index)} vorlesen`);
+      audio.setAttribute('aria-pressed','false');
+      audio.style.marginLeft='10px';
+      audio.style.border='0';
+      audio.style.background='transparent';
+      audio.style.cursor=supported?'pointer':'default';
+      audio.style.fontSize='18px';
+      audio.style.flex='0 0 auto';
+      audio.addEventListener('click',event=>{
+        event.preventDefault();
+        event.stopPropagation();
+        speakText(audio,textSpan.textContent);
+      });
+      answer.appendChild(audio);
+    });
   }
 
   function enhanceCard(card){
     if(!card)return;
     const title=card.querySelector('.question-title');
     if(!title)return;
-
     const questionText=(title.textContent||'').trim();
-    if(questionText!==currentQuestionText){
-      stopSpeech();
-      currentQuestionText=questionText;
-    }
-
-    if(card.querySelector('.question-audio-btn'))return;
-
-    const button=document.createElement('button');
-    button.type='button';
-    button.className='btn question-audio-btn';
-    button.textContent=supported?'🔊 Frage + Antworten anhören':'🔇 Audio nicht unterstützt';
-    button.disabled=!supported;
-    button.setAttribute('aria-label','Deutsche Frage und alle Antworten vorlesen');
-    button.setAttribute('aria-pressed','false');
-    button.style.margin='0 0 16px 0';
-    title.insertAdjacentElement('afterend',button);
-
-    if(supported){
-      button.addEventListener('click',event=>{
-        event.preventDefault();
-        event.stopPropagation();
-        speakQuestionAndAnswers(button,card,title);
-      });
-    }
+    if(questionText!==currentQuestionText){stopSpeech();currentQuestionText=questionText;}
+    addQuestionAudio(card,title);
+    addAnswerAudio(card);
   }
 
   const learnCard=document.getElementById('learnCard');
   if(!learnCard)return;
-
-  const observer=new MutationObserver(()=>{
-    requestAnimationFrame(()=>enhanceCard(learnCard));
-  });
+  const observer=new MutationObserver(()=>requestAnimationFrame(()=>enhanceCard(learnCard)));
   observer.observe(learnCard,{childList:true,subtree:true});
   enhanceCard(learnCard);
-
-  if(supported && 'onvoiceschanged' in window.speechSynthesis){
-    window.speechSynthesis.onvoiceschanged=()=>{};
-  }
-
   document.addEventListener('visibilitychange',()=>{if(document.hidden)stopSpeech();});
   window.addEventListener('beforeunload',stopSpeech);
 })();
