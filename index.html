@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Leben in Deutschland – Lernen & Test</title>
+  <meta name="description" content="Kostenlos für Leben in Deutschland und den Einbürgerungstest lernen – Lernmodus, Prüfungssimulation und Bundesland-Fragen." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#home">🇩🇪 Test in Deutschland</a>
+      <nav>
+        <a href="#lernen">Lernen</a>
+        <a href="#pruefung">Prüfung</a>
+        <a href="#favoriten">Favoriten</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section id="home" class="hero">
+      <div>
+        <span class="badge">Leben in Deutschland · Einbürgerungstest</span>
+        <h1>Einfach lernen. Sicherer in die Prüfung.</h1>
+        <p>Übe die Fragen, wähle dein Bundesland und starte eine realistische Prüfungssimulation mit 33 Fragen.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#lernen">Jetzt lernen</a>
+          <a class="btn" href="#pruefung">Prüfung starten</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <strong>Prüfungsmodus</strong>
+        <div class="stat"><b>33</b><span>Fragen</span></div>
+        <div class="stat"><b>60</b><span>Minuten</span></div>
+        <div class="stat"><b>17</b><span>richtige zum Bestehen*</span></div>
+      </div>
+    </section>
+
+    <section class="panel settings">
+      <div>
+        <label for="state">Bundesland</label>
+        <select id="state"></select>
+      </div>
+      <div>
+        <label for="search">Fragen suchen</label>
+        <input id="search" type="search" placeholder="z. B. Grundgesetz, Bundestag …" />
+      </div>
+      <div class="progress-box">
+        <span>Fortschritt</span>
+        <strong id="progressText">0 gelernt</strong>
+      </div>
+    </section>
+
+    <section id="lernen" class="section">
+      <div class="section-head">
+        <div><span class="eyebrow">Lernmodus</span><h2>Fragen üben</h2></div>
+        <button id="randomBtn" class="btn">Zufällige Frage</button>
+      </div>
+      <div id="learnCard" class="question-card loading">Fragen werden geladen …</div>
+    </section>
+
+    <section id="pruefung" class="section">
+      <div class="section-head">
+        <div><span class="eyebrow">Simulation</span><h2>Prüfungsmodus</h2></div>
+        <div id="timer" class="timer">60:00</div>
+      </div>
+      <div id="examIntro" class="panel exam-intro">
+        <p>Die Simulation zieht 30 allgemeine und 3 Fragen deines Bundeslands.</p>
+        <button id="startExam" class="btn primary">33-Fragen-Test starten</button>
+      </div>
+      <div id="examCard" class="question-card hidden"></div>
+      <div id="examResult" class="panel hidden"></div>
+    </section>
+
+    <section id="favoriten" class="section">
+      <div class="section-head"><div><span class="eyebrow">Gespeichert</span><h2>Favoriten & Fehler</h2></div></div>
+      <div class="grid2">
+        <div class="panel"><h3>⭐ Favoriten</h3><div id="favoritesList" class="mini-list"></div></div>
+        <div class="panel"><h3>↻ Falsch beantwortet</h3><div id="wrongList" class="mini-list"></div></div>
+      </div>
+    </section>
+
+    <section class="notice">
+      <strong>Hinweis:</strong> Dies ist keine offizielle Website des BAMF. Für verbindliche Informationen und den aktuellen Fragenkatalog gelten die offiziellen Veröffentlichungen des Bundesamts für Migration und Flüchtlinge.
+    </section>
+  </main>
+
+  <footer><div class="wrap footer"><span>Test in Deutschland</span><span>Datenschutz · Impressum · Quellen: BAMF</span></div></footer>
+  <script src="app.js"></script>
+</body>
+</html>
