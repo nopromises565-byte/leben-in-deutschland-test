@@ -32,7 +32,6 @@
         <a href="#pruefung" data-i18n="exam">Prüfung</a>
         <a href="#favoriten" data-i18n="favorites">Favoriten</a>
         <a href="mitglieder.html" data-i18n="members">Mitglieder</a>
-        <a href="admin.html" data-i18n="admin">Admin</a>
       </nav>
     </div>
   </header>
@@ -64,7 +63,7 @@
     <section class="notice"><strong data-i18n="notice">Hinweis</strong>: <span data-i18n="noticeText">Dies ist keine offizielle Website des BAMF. Für verbindliche Informationen und den aktuellen Fragenkatalog gelten die offiziellen Veröffentlichungen des Bundesamts für Migration und Flüchtlinge.</span></section>
   </main>
 
-  <footer><div class="wrap footer"><span>Test in Deutschland</span><span><a href="datenschutz.html">Datenschutz</a> · <a href="impressum.html">Impressum</a> · <a href="quellen.html">Quellen</a></span></div></footer>
+  <footer><div class="wrap footer"><span>Test in Deutschland</span><span><a href="datenschutz.html">Datenschutz</a> · <a href="impressum.html">Impressum</a> · <a href="admin.html" data-i18n="admin">Admin</a> · <a href="quellen.html">Quellen</a></span></div></footer>
   <script src="auth.js"></script><script src="i18n.js"></script><script src="progress-sync.js"></script><script src="app.js"></script><script src="learning-feedback.js"></script><script src="question-audio.js"></script><script src="exam-enhancements.js"></script><script src="i18n-dynamic-fix.js"></script>
   <script>const mobileMenuBtn=document.getElementById('mobileMenuBtn'),mainNav=document.getElementById('mainNav');mobileMenuBtn.addEventListener('click',()=>{const open=mainNav.classList.toggle('open');mobileMenuBtn.setAttribute('aria-expanded',String(open));mobileMenuBtn.textContent=open?'✕':'☰';});mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(window.innerWidth<=800){mainNav.classList.remove('open');mobileMenuBtn.setAttribute('aria-expanded','false');mobileMenuBtn.textContent='☰';}}));</script>
 </body>
