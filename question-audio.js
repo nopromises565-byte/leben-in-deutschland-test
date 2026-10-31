@@ -5,7 +5,7 @@
 
   function resetButton(button){
     if(!button)return;
-    button.textContent='🔊 Frage anhören';
+    button.textContent='🔊 Frage + Antworten anhören';
     button.setAttribute('aria-pressed','false');
   }
 
@@ -26,7 +26,17 @@
       || null;
   }
 
-  function speakQuestion(button,title){
+  function collectSpeechText(card,title){
+    const question=(title?.textContent||'').trim();
+    const answers=[...card.querySelectorAll('.answer')].map((button,index)=>{
+      const text=(button.querySelector('span:last-child')?.textContent||'').trim();
+      const letter=String.fromCharCode(65+index);
+      return text?`Antwort ${letter}: ${text}`:'';
+    }).filter(Boolean);
+    return [question,...answers].filter(Boolean).join('. ');
+  }
+
+  function speakQuestionAndAnswers(button,card,title){
     if(!supported)return;
 
     if(speakingButton===button && window.speechSynthesis.speaking){
@@ -35,12 +45,12 @@
     }
 
     stopSpeech();
-    const text=(title?.textContent||'').trim();
+    const text=collectSpeechText(card,title);
     if(!text)return;
 
     const utterance=new SpeechSynthesisUtterance(text);
     utterance.lang='de-DE';
-    utterance.rate=0.9;
+    utterance.rate=0.88;
     utterance.pitch=1;
     utterance.volume=1;
 
@@ -64,7 +74,6 @@
       }
     };
 
-    // Chrome/Android can occasionally keep speech synthesis paused.
     try{window.speechSynthesis.resume();}catch{}
     window.speechSynthesis.speak(utterance);
   }
@@ -85,9 +94,9 @@
     const button=document.createElement('button');
     button.type='button';
     button.className='btn question-audio-btn';
-    button.textContent=supported?'🔊 Frage anhören':'🔇 Audio nicht unterstützt';
+    button.textContent=supported?'🔊 Frage + Antworten anhören':'🔇 Audio nicht unterstützt';
     button.disabled=!supported;
-    button.setAttribute('aria-label','Deutsche Frage vorlesen');
+    button.setAttribute('aria-label','Deutsche Frage und alle Antworten vorlesen');
     button.setAttribute('aria-pressed','false');
     button.style.margin='0 0 16px 0';
     title.insertAdjacentElement('afterend',button);
@@ -96,7 +105,7 @@
       button.addEventListener('click',event=>{
         event.preventDefault();
         event.stopPropagation();
-        speakQuestion(button,title);
+        speakQuestionAndAnswers(button,card,title);
       });
     }
   }
@@ -110,7 +119,6 @@
   observer.observe(learnCard,{childList:true,subtree:true});
   enhanceCard(learnCard);
 
-  // Some browsers load available voices asynchronously.
   if(supported && 'onvoiceschanged' in window.speechSynthesis){
     window.speechSynthesis.onvoiceschanged=()=>{};
   }
