@@ -5,13 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Adminbereich – Test in Deutschland</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <header class="topbar"><div class="wrap nav"><a class="brand" href="index.html">🇩🇪 Test in Deutschland</a><nav><a href="index.html">Start</a><a href="mitglieder.html">Mitglieder</a><a href="admin.html">Admin</a></nav></div></header>
   <main class="wrap auth-page">
-    <section class="auth-hero"><span class="eyebrow">Adminbereich</span><h1>Verwaltung</h1><p>Dieser Bereich ist für Administratoren vorgesehen. Die echte Rechteprüfung wird im nächsten Schritt sicher mit Supabase verbunden.</p></section>
-    <section class="panel auth-card admin-login"><h2>Admin-Anmeldung</h2><label>E-Mail</label><input type="email" placeholder="admin@beispiel.de" disabled><label>Passwort</label><input type="password" placeholder="••••••••" disabled><button class="btn primary" disabled>Als Admin anmelden</button><p class="auth-note">Aktuell ist diese Seite nur die Oberfläche. Ohne Backend wäre ein Passwortschutz hier nicht sicher.</p></section>
-    <section class="section"><div class="grid2"><div class="panel dashboard-card"><h3>👥 Mitglieder</h3><p>Konten ansehen, sperren oder freischalten.</p></div><div class="panel dashboard-card"><h3>❓ Fragen</h3><p>Fragen, Antworten und Erklärungen verwalten.</p></div><div class="panel dashboard-card"><h3>🧠 Eselsbrücken</h3><p>Eigene Eselsbrücken pro Frage hinterlegen.</p></div><div class="panel dashboard-card"><h3>📊 Statistik</h3><p>Prüfungen, Lernfortschritt und Nutzung auswerten.</p></div></div></section>
+    <section class="auth-hero"><span class="eyebrow">Adminbereich</span><h1>Verwaltung</h1><p>Nur Konten mit der Rolle <strong>admin</strong> erhalten Zugriff auf die Verwaltungsfunktionen.</p></section>
+
+    <section id="adminLoginArea" class="panel auth-card admin-login">
+      <form id="adminLoginForm">
+        <h2>Admin-Anmeldung</h2>
+        <label>E-Mail</label><input name="email" type="email" placeholder="admin@beispiel.de" required>
+        <label>Passwort</label><input name="password" type="password" placeholder="••••••••" required>
+        <button class="btn primary" type="submit">Als Admin anmelden</button>
+      </form>
+      <p id="adminStatus" class="auth-note"></p>
+    </section>
+
+    <section id="adminArea" class="hidden">
+      <div class="panel dashboard-card"><h2>Admin-Dashboard</h2><p>Angemeldet als <strong id="adminEmail"></strong></p><button id="adminLogoutBtn" class="btn">Abmelden</button></div>
+      <section class="section"><div class="grid2"><div class="panel dashboard-card"><h3>👥 Mitglieder</h3><p>Konten ansehen, sperren oder freischalten.</p></div><div class="panel dashboard-card"><h3>❓ Fragen</h3><p>Fragen, Antworten und Erklärungen verwalten.</p></div><div class="panel dashboard-card"><h3>🧠 Eselsbrücken</h3><p>Eigene Eselsbrücken pro Frage hinterlegen.</p></div><div class="panel dashboard-card"><h3>📊 Statistik</h3><p>Prüfungen, Lernfortschritt und Nutzung auswerten.</p></div></div></section>
+    </section>
   </main>
+  <script src="auth.js"></script>
+  <script>initAdminPage();</script>
 </body>
 </html>
