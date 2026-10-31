@@ -22,6 +22,7 @@
         <label>E-Mail</label><input name="email" type="email" placeholder="name@beispiel.de" required>
         <label>Passwort</label><input name="password" type="password" placeholder="••••••••" required>
         <button class="btn primary" type="submit">Anmelden</button>
+        <button id="forgotPasswordBtn" class="btn" type="button">Passwort vergessen?</button>
       </form>
       <form id="registerForm" class="panel auth-card">
         <h2>Registrieren</h2>
@@ -31,6 +32,16 @@
         <button class="btn" type="submit">Konto erstellen</button>
       </form>
     </section>
+
+    <section id="resetPasswordArea" class="panel auth-card admin-login hidden">
+      <h2>Neues Passwort festlegen</h2>
+      <form id="resetPasswordForm">
+        <label>Neues Passwort</label><input name="password" type="password" minlength="8" placeholder="Mindestens 8 Zeichen" required>
+        <label>Passwort wiederholen</label><input name="confirmPassword" type="password" minlength="8" placeholder="Passwort wiederholen" required>
+        <button class="btn primary" type="submit">Passwort speichern</button>
+      </form>
+    </section>
+
     <p id="authStatus" class="auth-note"></p>
 
     <section id="memberArea" class="hidden">
@@ -89,6 +100,6 @@
   </main>
   <script src="auth.js"></script>
   <script src="member-dashboard.js"></script>
-  <script>initMemberDashboard();</script>
+  <script>initMemberPage();initMemberDashboard();</script>
 </body>
 </html>
