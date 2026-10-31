@@ -13,11 +13,11 @@
     <div class="wrap nav">
       <a class="brand" href="#home">🇩🇪 Test in Deutschland</a>
       <nav>
-        <a href="#lernen">Lernen</a>
-        <a href="#pruefung">Prüfung</a>
-        <a href="#favoriten">Favoriten</a>
-        <a href="mitglieder.html">Mitglieder</a>
-        <a href="admin.html">Admin</a>
+        <a href="#lernen" data-i18n="learn">Lernen</a>
+        <a href="#pruefung" data-i18n="exam">Prüfung</a>
+        <a href="#favoriten" data-i18n="favorites">Favoriten</a>
+        <a href="mitglieder.html" data-i18n="members">Mitglieder</a>
+        <a href="admin.html" data-i18n="admin">Admin</a>
       </nav>
     </div>
   </header>
@@ -29,24 +29,25 @@
         <h1>Einfach lernen. Sicherer in die Prüfung.</h1>
         <p>Übe die Fragen, wähle dein Bundesland und starte eine realistische Prüfungssimulation mit 33 Fragen.</p>
         <div class="hero-actions">
-          <a class="btn primary" href="#lernen">Jetzt lernen</a>
-          <a class="btn" href="#pruefung">Prüfung starten</a>
-          <a class="btn" href="mitglieder.html">Mitgliederbereich</a>
+          <a class="btn primary" href="#lernen" data-i18n="learn">Lernen</a>
+          <a class="btn" href="#pruefung" data-i18n="exam">Prüfung</a>
+          <a class="btn" href="mitglieder.html" data-i18n="members">Mitglieder</a>
         </div>
       </div>
       <div class="hero-card">
-        <strong>Prüfungsmodus</strong>
-        <div class="stat"><b>33</b><span>Fragen</span></div>
+        <strong data-i18n="examMode">Prüfungsmodus</strong>
+        <div class="stat"><b>33</b><span data-i18n="questions">Fragen</span></div>
         <div class="stat"><b>60</b><span>Minuten</span></div>
         <div class="stat"><b>17</b><span>richtige zum Bestehen*</span></div>
       </div>
     </section>
 
     <section class="panel settings">
-      <div><label for="state">Bundesland</label><select id="state"></select></div>
-      <div><label for="search">Fragen suchen</label><input id="search" type="search" placeholder="z. B. Grundgesetz, Bundestag …" /></div>
+      <div><label for="state" data-i18n="state">Bundesland</label><select id="state"></select></div>
+      <div><label for="search" data-i18n="search">Fragen suchen</label><input id="search" type="search" placeholder="z. B. Grundgesetz, Bundestag …" /></div>
+      <div><label for="uiLanguage" data-i18n="language">Sprache</label><select id="uiLanguage" aria-label="Sprache"></select></div>
       <div class="progress-box">
-        <span>Fortschritt</span>
+        <span data-i18n="progress">Fortschritt</span>
         <strong id="progressText">0 gelernt</strong>
         <div class="progress-track" aria-hidden="true"><div id="progressBar" class="progress-fill" style="width:0%"></div></div>
         <small id="progressPercent">0 %</small>
@@ -54,33 +55,34 @@
     </section>
 
     <section id="lernen" class="section">
-      <div class="section-head"><div><span class="eyebrow">Lernmodus</span><h2>Fragen üben</h2></div><button id="randomBtn" class="btn">Zufällige Frage</button></div>
+      <div class="section-head"><div><span class="eyebrow" data-i18n="learnMode">Lernmodus</span><h2 data-i18n="practice">Fragen üben</h2></div><button id="randomBtn" class="btn" data-i18n="random">Zufällige Frage</button></div>
       <div class="learn-filter-bar" role="group" aria-label="Lernfilter">
-        <button class="btn learn-filter active" data-filter="all">Alle</button>
-        <button class="btn learn-filter" data-filter="unlearned">🆕 Nur ungelernt</button>
-        <button class="btn learn-filter" data-filter="wrong">↻ Nur falsch</button>
-        <button class="btn learn-filter" data-filter="favorites">⭐ Nur Favoriten</button>
+        <button class="btn learn-filter active" data-filter="all" data-i18n="all">Alle</button>
+        <button class="btn learn-filter" data-filter="unlearned" data-i18n="unlearned">🆕 Nur ungelernt</button>
+        <button class="btn learn-filter" data-filter="wrong" data-i18n="wrong">↻ Nur falsch</button>
+        <button class="btn learn-filter" data-filter="favorites" data-i18n="favOnly">⭐ Nur Favoriten</button>
         <span id="filterCount" class="filter-count"></span>
       </div>
       <div id="learnCard" class="question-card loading">Fragen werden geladen …</div>
     </section>
 
     <section id="pruefung" class="section">
-      <div class="section-head"><div><span class="eyebrow">Simulation</span><h2>Prüfungsmodus</h2></div><div id="timer" class="timer">60:00</div></div>
-      <div id="examIntro" class="panel exam-intro"><p>Die Simulation zieht 30 allgemeine und 3 Fragen deines Bundeslands.</p><button id="startExam" class="btn primary">33-Fragen-Test starten</button></div>
+      <div class="section-head"><div><span class="eyebrow" data-i18n="simulation">Simulation</span><h2 data-i18n="examMode">Prüfungsmodus</h2></div><div id="timer" class="timer">60:00</div></div>
+      <div id="examIntro" class="panel exam-intro"><p data-i18n="examIntro">Die Simulation zieht 30 allgemeine und 3 Fragen deines Bundeslands.</p><button id="startExam" class="btn primary" data-i18n="startExam">33-Fragen-Test starten</button></div>
       <div id="examCard" class="question-card hidden"></div><div id="examResult" class="panel hidden"></div>
     </section>
 
     <section id="favoriten" class="section">
-      <div class="section-head"><div><span class="eyebrow">Gespeichert</span><h2>Favoriten & Fehler</h2></div></div>
-      <div class="grid2"><div class="panel"><h3>⭐ Favoriten</h3><div id="favoritesList" class="mini-list"></div></div><div class="panel"><h3>↻ Falsch beantwortet</h3><div id="wrongList" class="mini-list"></div></div></div>
+      <div class="section-head"><div><span class="eyebrow" data-i18n="saved">Gespeichert</span><h2 data-i18n="favAndWrong">Favoriten & Fehler</h2></div></div>
+      <div class="grid2"><div class="panel"><h3>⭐ <span data-i18n="favorites">Favoriten</span></h3><div id="favoritesList" class="mini-list"></div></div><div class="panel"><h3>↻ <span data-i18n="wrongAnswered">Falsch beantwortet</span></h3><div id="wrongList" class="mini-list"></div></div></div>
     </section>
 
-    <section class="notice"><strong>Hinweis:</strong> Dies ist keine offizielle Website des BAMF. Für verbindliche Informationen und den aktuellen Fragenkatalog gelten die offiziellen Veröffentlichungen des Bundesamts für Migration und Flüchtlinge.</section>
+    <section class="notice"><strong data-i18n="notice">Hinweis</strong>: <span data-i18n="noticeText">Dies ist keine offizielle Website des BAMF. Für verbindliche Informationen und den aktuellen Fragenkatalog gelten die offiziellen Veröffentlichungen des Bundesamts für Migration und Flüchtlinge.</span></section>
   </main>
 
   <footer><div class="wrap footer"><span>Test in Deutschland</span><span><a href="datenschutz.html">Datenschutz</a> · <a href="impressum.html">Impressum</a> · <a href="quellen.html">Quellen</a></span></div></footer>
   <script src="auth.js"></script>
+  <script src="i18n.js"></script>
   <script src="progress-sync.js"></script>
   <script src="app.js"></script>
   <script src="exam-enhancements.js"></script>
