@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /admin-fragen.html
+Disallow: /admin-mitglieder.html
+Disallow: /admin-eselsbruecken.html
+Disallow: /admin-statistik.html
+
+Sitemap: https://leben-in-deutschland-test-kappa.vercel.app/sitemap.xml
