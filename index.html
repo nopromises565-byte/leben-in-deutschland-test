@@ -8,7 +8,6 @@
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#164f3f" />
   <link rel="canonical" href="https://leben-in-deutschland-test-kappa.vercel.app/" />
-
   <meta property="og:type" content="website" />
   <meta property="og:locale" content="de_DE" />
   <meta property="og:title" content="Leben in Deutschland Test – Kostenlos lernen & üben" />
@@ -18,29 +17,17 @@
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Leben in Deutschland Test – Kostenlos lernen & üben" />
   <meta name="twitter:description" content="Kostenlos lernen, Fehler wiederholen und eine 33-Fragen-Prüfung simulieren." />
-
   <link rel="stylesheet" href="styles.css" />
   <link rel="stylesheet" href="i18n.css" />
-  <script type="application/ld+json">
-  {
-    "@context":"https://schema.org",
-    "@type":"WebApplication",
-    "name":"Test in Deutschland",
-    "url":"https://leben-in-deutschland-test-kappa.vercel.app/",
-    "applicationCategory":"EducationalApplication",
-    "operatingSystem":"Web",
-    "inLanguage":["de","ar","ku","en","tr","uk","ru"],
-    "description":"Kostenlose Lern- und Prüfungssimulation für Leben in Deutschland und den Einbürgerungstest.",
-    "isAccessibleForFree":true
-  }
-  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Test in Deutschland","url":"https://leben-in-deutschland-test-kappa.vercel.app/","applicationCategory":"EducationalApplication","operatingSystem":"Web","inLanguage":["de","ar","ku","en","tr","uk","ru"],"description":"Kostenlose Lern- und Prüfungssimulation für Leben in Deutschland und den Einbürgerungstest.","isAccessibleForFree":true}</script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <header class="topbar">
     <div class="wrap nav">
       <a class="brand" href="#home">🇩🇪 Test in Deutschland</a>
-      <nav>
+      <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Menü öffnen" aria-expanded="false">☰</button>
+      <nav id="mainNav">
         <a href="#lernen" data-i18n="learn">Lernen</a>
         <a href="#pruefung" data-i18n="exam">Prüfung</a>
         <a href="#favoriten" data-i18n="favorites">Favoriten</a>
@@ -56,64 +43,29 @@
         <span class="badge">Leben in Deutschland · Einbürgerungstest</span>
         <h1>Einfach lernen. Sicherer in die Prüfung.</h1>
         <p>Übe die Fragen, wähle dein Bundesland und starte eine realistische Prüfungssimulation mit 33 Fragen.</p>
-        <div class="hero-actions">
-          <a class="btn primary" href="#lernen" data-i18n="learn">Lernen</a>
-          <a class="btn" href="#pruefung" data-i18n="exam">Prüfung</a>
-          <a class="btn" href="mitglieder.html" data-i18n="members">Mitglieder</a>
-        </div>
+        <div class="hero-actions"><a class="btn primary" href="#lernen" data-i18n="learn">Lernen</a><a class="btn" href="#pruefung" data-i18n="exam">Prüfung</a><a class="btn" href="mitglieder.html" data-i18n="members">Mitglieder</a></div>
       </div>
-      <div class="hero-card">
-        <strong data-i18n="examMode">Prüfungsmodus</strong>
-        <div class="stat"><b>33</b><span data-i18n="questions">Fragen</span></div>
-        <div class="stat"><b>60</b><span>Minuten</span></div>
-        <div class="stat"><b>17</b><span>richtige zum Bestehen*</span></div>
-      </div>
+      <div class="hero-card"><strong data-i18n="examMode">Prüfungsmodus</strong><div class="stat"><b>33</b><span data-i18n="questions">Fragen</span></div><div class="stat"><b>60</b><span>Minuten</span></div><div class="stat"><b>17</b><span>richtige zum Bestehen*</span></div></div>
     </section>
 
     <section class="panel settings">
       <div><label for="state" data-i18n="state">Bundesland</label><select id="state"></select></div>
       <div><label for="search" data-i18n="search">Fragen suchen</label><input id="search" type="search" placeholder="z. B. Grundgesetz, Bundestag …" /></div>
       <div><label for="uiLanguage" data-i18n="language">Sprache</label><select id="uiLanguage" aria-label="Sprache"></select></div>
-      <div class="progress-box">
-        <span data-i18n="progress">Fortschritt</span>
-        <strong id="progressText">0 gelernt</strong>
-        <div class="progress-track" aria-hidden="true"><div id="progressBar" class="progress-fill" style="width:0%"></div></div>
-        <small id="progressPercent">0 %</small>
-      </div>
+      <div class="progress-box"><span data-i18n="progress">Fortschritt</span><strong id="progressText">0 gelernt</strong><div class="progress-track" aria-hidden="true"><div id="progressBar" class="progress-fill" style="width:0%"></div></div><small id="progressPercent">0 %</small></div>
     </section>
 
-    <section id="lernen" class="section">
-      <div class="section-head"><div><span class="eyebrow" data-i18n="learnMode">Lernmodus</span><h2 data-i18n="practice">Fragen üben</h2></div><button id="randomBtn" class="btn" data-i18n="random">Zufällige Frage</button></div>
-      <div class="learn-filter-bar" role="group" aria-label="Lernfilter">
-        <button class="btn learn-filter active" data-filter="all" data-i18n="all">Alle</button>
-        <button class="btn learn-filter" data-filter="unlearned" data-i18n="unlearned">🆕 Nur ungelernt</button>
-        <button class="btn learn-filter" data-filter="wrong" data-i18n="wrong">↻ Nur falsch</button>
-        <button class="btn learn-filter" data-filter="favorites" data-i18n="favOnly">⭐ Nur Favoriten</button>
-        <span id="filterCount" class="filter-count"></span>
-      </div>
-      <div id="learnCard" class="question-card loading">Fragen werden geladen …</div>
-    </section>
+    <section id="lernen" class="section"><div class="section-head"><div><span class="eyebrow" data-i18n="learnMode">Lernmodus</span><h2 data-i18n="practice">Fragen üben</h2></div><button id="randomBtn" class="btn" data-i18n="random">Zufällige Frage</button></div><div class="learn-filter-bar" role="group" aria-label="Lernfilter"><button class="btn learn-filter active" data-filter="all" data-i18n="all">Alle</button><button class="btn learn-filter" data-filter="unlearned" data-i18n="unlearned">🆕 Nur ungelernt</button><button class="btn learn-filter" data-filter="wrong" data-i18n="wrong">↻ Nur falsch</button><button class="btn learn-filter" data-filter="favorites" data-i18n="favOnly">⭐ Nur Favoriten</button><span id="filterCount" class="filter-count"></span></div><div id="learnCard" class="question-card loading">Fragen werden geladen …</div></section>
 
-    <section id="pruefung" class="section">
-      <div class="section-head"><div><span class="eyebrow" data-i18n="simulation">Simulation</span><h2 data-i18n="examMode">Prüfungsmodus</h2></div><div id="timer" class="timer">60:00</div></div>
-      <div id="examIntro" class="panel exam-intro"><p data-i18n="examIntro">Die Simulation zieht 30 allgemeine und 3 Fragen deines Bundeslands.</p><button id="startExam" class="btn primary" data-i18n="startExam">33-Fragen-Test starten</button></div>
-      <div id="examCard" class="question-card hidden"></div><div id="examResult" class="panel hidden"></div>
-    </section>
+    <section id="pruefung" class="section"><div class="section-head"><div><span class="eyebrow" data-i18n="simulation">Simulation</span><h2 data-i18n="examMode">Prüfungsmodus</h2></div><div id="timer" class="timer">60:00</div></div><div id="examIntro" class="panel exam-intro"><p data-i18n="examIntro">Die Simulation zieht 30 allgemeine und 3 Fragen deines Bundeslands.</p><button id="startExam" class="btn primary" data-i18n="startExam">33-Fragen-Test starten</button></div><div id="examCard" class="question-card hidden"></div><div id="examResult" class="panel hidden"></div></section>
 
-    <section id="favoriten" class="section">
-      <div class="section-head"><div><span class="eyebrow" data-i18n="saved">Gespeichert</span><h2 data-i18n="favAndWrong">Favoriten & Fehler</h2></div></div>
-      <div class="grid2"><div class="panel"><h3>⭐ <span data-i18n="favorites">Favoriten</span></h3><div id="favoritesList" class="mini-list"></div></div><div class="panel"><h3>↻ <span data-i18n="wrongAnswered">Falsch beantwortet</span></h3><div id="wrongList" class="mini-list"></div></div></div>
-    </section>
+    <section id="favoriten" class="section"><div class="section-head"><div><span class="eyebrow" data-i18n="saved">Gespeichert</span><h2 data-i18n="favAndWrong">Favoriten & Fehler</h2></div></div><div class="grid2"><div class="panel"><h3>⭐ <span data-i18n="favorites">Favoriten</span></h3><div id="favoritesList" class="mini-list"></div></div><div class="panel"><h3>↻ <span data-i18n="wrongAnswered">Falsch beantwortet</span></h3><div id="wrongList" class="mini-list"></div></div></div></section>
 
     <section class="notice"><strong data-i18n="notice">Hinweis</strong>: <span data-i18n="noticeText">Dies ist keine offizielle Website des BAMF. Für verbindliche Informationen und den aktuellen Fragenkatalog gelten die offiziellen Veröffentlichungen des Bundesamts für Migration und Flüchtlinge.</span></section>
   </main>
 
   <footer><div class="wrap footer"><span>Test in Deutschland</span><span><a href="datenschutz.html">Datenschutz</a> · <a href="impressum.html">Impressum</a> · <a href="quellen.html">Quellen</a></span></div></footer>
-  <script src="auth.js"></script>
-  <script src="i18n.js"></script>
-  <script src="progress-sync.js"></script>
-  <script src="app.js"></script>
-  <script src="exam-enhancements.js"></script>
-  <script src="i18n-dynamic-fix.js"></script>
+  <script src="auth.js"></script><script src="i18n.js"></script><script src="progress-sync.js"></script><script src="app.js"></script><script src="exam-enhancements.js"></script><script src="i18n-dynamic-fix.js"></script>
+  <script>const mobileMenuBtn=document.getElementById('mobileMenuBtn'),mainNav=document.getElementById('mainNav');mobileMenuBtn.addEventListener('click',()=>{const open=mainNav.classList.toggle('open');mobileMenuBtn.setAttribute('aria-expanded',String(open));mobileMenuBtn.textContent=open?'✕':'☰';});mainNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{if(window.innerWidth<=800){mainNav.classList.remove('open');mobileMenuBtn.setAttribute('aria-expanded','false');mobileMenuBtn.textContent='☰';}}));</script>
 </body>
 </html>
