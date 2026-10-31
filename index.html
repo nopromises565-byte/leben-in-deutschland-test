@@ -45,11 +45,23 @@
     <section class="panel settings">
       <div><label for="state">Bundesland</label><select id="state"></select></div>
       <div><label for="search">Fragen suchen</label><input id="search" type="search" placeholder="z. B. Grundgesetz, Bundestag …" /></div>
-      <div class="progress-box"><span>Fortschritt</span><strong id="progressText">0 gelernt</strong></div>
+      <div class="progress-box">
+        <span>Fortschritt</span>
+        <strong id="progressText">0 gelernt</strong>
+        <div class="progress-track" aria-hidden="true"><div id="progressBar" class="progress-fill" style="width:0%"></div></div>
+        <small id="progressPercent">0 %</small>
+      </div>
     </section>
 
     <section id="lernen" class="section">
       <div class="section-head"><div><span class="eyebrow">Lernmodus</span><h2>Fragen üben</h2></div><button id="randomBtn" class="btn">Zufällige Frage</button></div>
+      <div class="learn-filter-bar" role="group" aria-label="Lernfilter">
+        <button class="btn learn-filter active" data-filter="all">Alle</button>
+        <button class="btn learn-filter" data-filter="unlearned">🆕 Nur ungelernt</button>
+        <button class="btn learn-filter" data-filter="wrong">↻ Nur falsch</button>
+        <button class="btn learn-filter" data-filter="favorites">⭐ Nur Favoriten</button>
+        <span id="filterCount" class="filter-count"></span>
+      </div>
       <div id="learnCard" class="question-card loading">Fragen werden geladen …</div>
     </section>
 
