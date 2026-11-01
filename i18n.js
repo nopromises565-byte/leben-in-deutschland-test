@@ -12,8 +12,12 @@ let i18nLang=localStorage.getItem('lid_ui_language')||'de';
 function i18nT(key){return I18N_TEXT[i18nLang]?.[key]||I18N_TEXT.de[key]||key;}
 function applyI18n(){
  document.documentElement.lang=i18nLang;
- document.documentElement.dir=i18nLang==='ar'?'rtl':'ltr';
- document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;el.textContent=i18nT(key);});
+ /* Keep the complete page layout LTR on every language. Switching the root
+    document to RTL moved the mobile politics page outside the viewport on
+    some Android browsers. Arabic text itself can still render RTL naturally. */
+ document.documentElement.dir='ltr';
+ if(document.body)document.body.dir='ltr';
+ document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;el.textContent=i18nT(key);if(i18nLang==='ar')el.setAttribute('dir','rtl');else el.removeAttribute('dir');});
  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{el.placeholder=i18nT(el.dataset.i18nPlaceholder);});
  const sel=document.getElementById('uiLanguage');if(sel)sel.value=i18nLang;
  translateDynamic(document.body);
