@@ -6,3 +6,9 @@ html[dir="rtl"] .filter-count{margin-left:0;margin-right:auto}
 html[dir="rtl"] .mini-item{text-align:right}
 @media(max-width:1000px){.settings{grid-template-columns:1fr 1fr}}
 @media(max-width:800px){.settings{grid-template-columns:1fr}.filter-count{margin-right:0}}
+
+/* Realistic Reichstag hero for the politics/citizenship test page. Important is used because the page has its own inline hero styles. */
+body.politik-page .reichstag-art{background-image:url('https://commons.wikimedia.org/wiki/Special:Redirect/file/Berlin%2020260713%20Reichstag.jpg')!important;background-position:center 46%!important;background-size:cover!important;background-repeat:no-repeat!important;background-color:#d9edff!important}
+body.politik-page .reichstag-art svg{display:none!important}
+body.politik-page .reichstag-art:after{background:linear-gradient(90deg,#f7fbff 0%,rgba(247,251,255,.78) 10%,rgba(247,251,255,.25) 34%,transparent 62%)!important}
+@media(max-width:800px){body.politik-page .reichstag-art{width:68%!important;opacity:.62!important;background-position:55% center!important}}
