@@ -29,6 +29,7 @@
       <button id="mobileMenuBtn" class="mobile-menu-btn" aria-label="Menü öffnen" aria-expanded="false">☰</button>
       <nav id="mainNav">
         <a href="#lernen" data-i18n="learn">Lernen</a>
+        <a href="#deutschlernen">Deutsch lernen</a>
         <a href="#pruefung" data-i18n="exam">Prüfung</a>
         <a href="#favoriten" data-i18n="favorites">Favoriten</a>
         <a href="mitglieder.html" data-i18n="members">Mitglieder</a>
@@ -42,7 +43,7 @@
         <span class="badge">Leben in Deutschland · Einbürgerungstest</span>
         <h1>Einfach lernen. Sicherer in die Prüfung.</h1>
         <p>Übe die Fragen, wähle dein Bundesland und starte eine realistische Prüfungssimulation mit 33 Fragen.</p>
-        <div class="hero-actions"><a class="btn primary" href="#lernen" data-i18n="learn">Lernen</a><a class="btn" href="#pruefung" data-i18n="exam">Prüfung</a><a class="btn" href="mitglieder.html" data-i18n="members">Mitglieder</a></div>
+        <div class="hero-actions"><a class="btn primary" href="#lernen" data-i18n="learn">Lernen</a><a class="btn" href="#deutschlernen">Deutsch lernen</a><a class="btn" href="#pruefung" data-i18n="exam">Prüfung</a><a class="btn" href="mitglieder.html" data-i18n="members">Mitglieder</a></div>
       </div>
       <div class="hero-card"><strong data-i18n="examMode">Prüfungsmodus</strong><div class="stat"><b>33</b><span data-i18n="questions">Fragen</span></div><div class="stat"><b>60</b><span>Minuten</span></div><div class="stat"><b>17</b><span>richtige zum Bestehen*</span></div></div>
     </section>
@@ -55,6 +56,16 @@
     </section>
 
     <section id="lernen" class="section"><div class="section-head"><div><span class="eyebrow" data-i18n="learnMode">Lernmodus</span><h2 data-i18n="practice">Fragen üben</h2></div><button id="randomBtn" class="btn" data-i18n="random">Zufällige Frage</button></div><div class="learn-filter-bar" role="group" aria-label="Lernfilter"><button class="btn learn-filter active" data-filter="all" data-i18n="all">Alle</button><button class="btn learn-filter" data-filter="unlearned" data-i18n="unlearned">🆕 Nur ungelernt</button><button class="btn learn-filter" data-filter="wrong" data-i18n="wrong">↻ Nur falsch</button><button class="btn learn-filter" data-filter="favorites" data-i18n="favOnly">⭐ Nur Favoriten</button><span id="filterCount" class="filter-count"></span></div><div id="learnCard" class="question-card loading">Fragen werden geladen …</div></section>
+
+    <section id="deutschlernen" class="section german-learning">
+      <div class="section-head"><div><span class="eyebrow">Deutsch lernen</span><h2>A1 · A2 · B1</h2><p class="german-intro">Deutsch Schritt für Schritt lernen – getrennt vom Einbürgerungstest.</p></div></div>
+      <div class="german-level-grid">
+        <article class="panel german-level-card"><span class="level-badge">A1</span><h3>Grundlagen</h3><p>Einfache Wörter, Alltagssätze, Fragen und erste Grammatik.</p><div class="german-actions"><button class="btn primary" type="button">Lernen</button><button class="btn" type="button">Quiz</button><button class="btn" type="button">Spielen</button></div></article>
+        <article class="panel german-level-card"><span class="level-badge">A2</span><h3>Alltag</h3><p>Sicherer sprechen, Sätze verbinden und typische Alltagssituationen üben.</p><div class="german-actions"><button class="btn primary" type="button">Lernen</button><button class="btn" type="button">Quiz</button><button class="btn" type="button">Spielen</button></div></article>
+        <article class="panel german-level-card"><span class="level-badge">B1</span><h3>Selbstständig Deutsch</h3><p>Texte verstehen, Grammatik festigen und auf B1-Niveau üben.</p><div class="german-actions"><button class="btn primary" type="button">Lernen</button><button class="btn" type="button">Quiz</button><button class="btn" type="button">Spielen</button></div></article>
+      </div>
+      <div class="panel german-preview"><strong>Vorschau</strong><p>Die Bereiche Lernen, Quiz und Spielen werden als eigene Übungen aufgebaut. So bleiben A1, A2 und B1 klar von den 310 Einbürgerungstest-Fragen getrennt.</p></div>
+    </section>
 
     <section id="pruefung" class="section"><div class="section-head"><div><span class="eyebrow" data-i18n="simulation">Simulation</span><h2 data-i18n="examMode">Prüfungsmodus</h2></div><div id="timer" class="timer">60:00</div></div><div id="examIntro" class="panel exam-intro"><p data-i18n="examIntro">Die Simulation zieht 30 allgemeine und 3 Fragen deines Bundeslands.</p><button id="startExam" class="btn primary" data-i18n="startExam">33-Fragen-Test starten</button></div><div id="examCard" class="question-card hidden"></div><div id="examResult" class="panel hidden"></div></section>
 
